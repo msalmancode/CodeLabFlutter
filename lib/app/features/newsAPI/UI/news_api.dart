@@ -297,7 +297,7 @@ class _NewsApiScreenState extends State<NewsApiScreen> {
                     style: const TextStyle(
                       fontFamily: KColor.fontName,
                       fontSize: 16,
-                      color: KColor.kPrimaryLightColor,
+                      color: KColor.lightText,
                     ),
                   ),
                 ),

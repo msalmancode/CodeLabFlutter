@@ -12,7 +12,7 @@ class KColor {
   static const Color background = Color(0xFFF2F3F8);
   static const Color grey = Color(0xFF3A5160);
 
-  static const Color lightText = Color(0xFF4A6572);
+  static const Color lightText = Color(0xFF78C4EA);
   static const Color darkText = Color(0xff5b0405);
   static const Color darkerText = Color(0xFF17262A);
 
