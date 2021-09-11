@@ -23,6 +23,8 @@ class _NewsApiScreenState extends State<NewsApiScreen> {
 
   final TextEditingController _searchController = TextEditingController();
 
+  bool isSwipeRefresh = false;
+
   @override
   void initState() {
     _getX_NewsApi_Controller.fetchNewsDataFromApi();
@@ -38,7 +40,7 @@ class _NewsApiScreenState extends State<NewsApiScreen> {
         ),
         backgroundColor: KColor.background,
         body: RefreshIndicator(
-          onRefresh: () => _getX_NewsApi_Controller.fetchNewsDataFromApi(),
+          onRefresh: () => onSwipToRefresh(),
           child: Column(
             children: [
               Obx(() {
@@ -129,14 +131,16 @@ class _NewsApiScreenState extends State<NewsApiScreen> {
 
   Widget _body() {
     if (_getX_NewsApi_Controller.isLoading.value) {
-      return const Expanded(
-        child: Center(
-          child: SpinKitCircle(
-            color: KColor.kPrimaryColor,
-            size: 50.0,
-          ),
-        ),
-      );
+      return isSwipeRefresh == false
+          ? const Expanded(
+              child: Center(
+                child: SpinKitCircle(
+                  color: KColor.kPrimaryColor,
+                  size: 50.0,
+                ),
+              ),
+            )
+          : Container();
     } else {
       if (_getX_NewsApi_Controller.newsList.isNotEmpty) {
         return _getX_NewsApi_Controller.searchNewsList.length != 0 ||
@@ -412,4 +416,10 @@ class _NewsApiScreenState extends State<NewsApiScreen> {
   void _launchURL(String _url) async => await canLaunch(_url)
       ? await launch(_url)
       : throw 'Could not launch $_url';
+
+  onSwipToRefresh() async {
+    isSwipeRefresh = true;
+    await _getX_NewsApi_Controller.fetchNewsDataFromApi();
+    isSwipeRefresh = false;
+  }
 }
